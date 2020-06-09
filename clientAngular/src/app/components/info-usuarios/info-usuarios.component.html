@@ -5,4 +5,9 @@
     <p class="text-center pt-3">{{user.descripcion}}</p>
 </div>
 </div>
-<app-contactos></app-contactos>
+<ng-container *ngIf="statusContactos">
+    <app-contactos [contactos]="contactos"></app-contactos>
+</ng-container>
+
+    
+

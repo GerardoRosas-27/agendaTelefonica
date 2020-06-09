@@ -1,1 +1,13 @@
-<p>contactos works!</p>
+<mat-grid-list cols="6" rowHeight="300px">
+  <mat-grid-tile *ngFor="let contacto of contactos">
+      <mat-list>
+        <mat-list-item>Nombre: {{contacto.nombre}} </mat-list-item>
+        <mat-list-item>Teléfono: {{contacto.telefono}} </mat-list-item>
+        <mat-list-item>Correo: {{contacto.correo}} </mat-list-item>
+        <mat-list-item>Fecha de nacimiento: {{contacto.fecha}} </mat-list-item>
+       </mat-list>
+
+  
+  
+  </mat-grid-tile>
+</mat-grid-list>

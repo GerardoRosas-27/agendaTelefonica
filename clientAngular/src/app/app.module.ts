@@ -15,6 +15,8 @@ import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ContactosComponent } from './components/info-usuarios/contactos/contactos.component';
+import { MaterialUiModule } from './material_ui/material-ui/material-ui.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { ContactosComponent } from './components/info-usuarios/contactos/contact
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialUiModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,

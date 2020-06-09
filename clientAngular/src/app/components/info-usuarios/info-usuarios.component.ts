@@ -3,6 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UsuariosService } from "../../services/usuarios.service";
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
+import { ContactosService } from 'src/app/services/contactos.service';
+import { Contactos } from 'src/app/models/contactos';
 
 @Component({
   selector: 'app-info-usuarios',
@@ -10,17 +12,20 @@ import { Usuario } from 'src/app/models/usuario';
   styleUrls: ['./info-usuarios.component.css']
 })
 export class InfoUsuariosComponent implements OnInit {
-
-  
+  statusContactos: boolean = false;
+  contactos: Contactos[] = new Array();
   usuarios: Usuario[];
-  constructor(private usuarioService: UsuariosService, private router: Router) { }
+  constructor(private usuarioService: UsuariosService,
+     private router: Router,
+     private contactosService: ContactosService) { }
 
   ngOnInit() {
+    this.getContactos();
     this.usuarioService.getPerfil()
       .subscribe(
         res => {
-          this.usuarios = res
-          alert("bienvenido " + this.usuarios[0].nombre);
+          this.usuarios = res;
+          //alert("bienvenido " + this.usuarios[0].nombre);
         },
         err => {
           if (err instanceof HttpErrorResponse) {
@@ -30,5 +35,16 @@ export class InfoUsuariosComponent implements OnInit {
           }
         }
       )
+  }
+  getContactos(){
+
+    this.contactosService.getContactos().subscribe(
+      (res: Contactos[]) =>{
+        console.log("contactos:");
+        console.log(res);
+        this.contactos = res;
+        this.statusContactos = true;
+      }
+    )
   }
 }
