@@ -9,10 +9,10 @@ class ContactosRoutes {
   }
   configRoutes(): void {
     this.router.get('/api/contactos', contactosC.keySecrect, contactosC.verificarToken, contactosC.getContactos);
-    this.router.get('/api/contactos/:id', contactosC.getContacto);
-    this.router.post('/api/contactos', contactosC.postContactos);
-    this.router.delete('/api/contactos/:id', contactosC.deleteContactos);
-    this.router.put('/api/contactos/:id', contactosC.putContactos);
+    this.router.get('/api/contactos/:id', contactosC.keySecrect, contactosC.verificarToken, contactosC.getContacto);
+    this.router.post('/api/contactos', contactosC.keySecrect, contactosC.verificarToken, contactosC.postContactos);
+    this.router.delete('/api/contactos/:id', contactosC.keySecrect, contactosC.verificarToken, contactosC.deleteContactos);
+    this.router.put('/api/contactos/:id', contactosC.keySecrect, contactosC.verificarToken, contactosC.putContactos);
 
   }
 }

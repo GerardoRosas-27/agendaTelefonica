@@ -1,13 +1,16 @@
-<mat-grid-list cols="6" rowHeight="300px">
+<mat-grid-list rowHeight="300px" [cols]="colSize">
   <mat-grid-tile *ngFor="let contacto of contactos">
+    <mat-card>
+      <button (click)="eliminarContacto(contacto.id,contacto.nombre)" mat-fab color="warn">
+        <mat-icon>delete_forever</mat-icon>
+    </button>
+      
       <mat-list>
         <mat-list-item>Nombre: {{contacto.nombre}} </mat-list-item>
         <mat-list-item>Teléfono: {{contacto.telefono}} </mat-list-item>
         <mat-list-item>Correo: {{contacto.correo}} </mat-list-item>
-        <mat-list-item>Fecha de nacimiento: {{contacto.fecha}} </mat-list-item>
-       </mat-list>
-
-  
-  
+        <mat-list-item>Fecha de nacimiento: {{contacto.fecha | date:'yyyy-MM-dd'}} </mat-list-item>
+      </mat-list>
+    </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

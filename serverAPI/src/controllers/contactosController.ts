@@ -41,7 +41,11 @@ class ContactosController {
     }
 
     public async postContactos(req: Request, res: Response) {
-        console.log(req.body)
+        console.log(req.body);
+         delete req.body.name;
+         delete req.body.keySecrect;
+         req.body.usuario = parseInt(req.body.userId);
+         delete req.body.userId;
         const result = await contactosModels.insert(req.body);
         console.log(result);
         if (result) {

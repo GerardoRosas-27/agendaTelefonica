@@ -1,13 +1,22 @@
-<div class="row col-12 justyfy-content-center" *ngFor="let user of usuarios">
-<div class="col-md-4">
-    <h4 class="text-center pt-3">Nombre: {{user.nombre}}</h4>
-    <p class="text-center pt-3">{{user.correo}}</p>
-    <p class="text-center pt-3">{{user.descripcion}}</p>
+<div class="container my-5" >
+    <div class="row col-12 justyfy-content-center" *ngFor="let user of usuarios">
+        <div class="col-md-4">
+            <h4 class="text-center pt-3">Nombre: {{user.nombre}}</h4>
+        </div>
+        <div class="col-md-4">
+            <p class="text-center pt-3">correo: {{user.correo}}</p>
+        </div>
+    </div>
+    <h3 class="text-center">Contactos</h3>
+    <div class="row">
+        <button (click)="crearContacto()" mat-fab color="primary">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
 </div>
-</div>
+
+
 <ng-container *ngIf="statusContactos">
-    <app-contactos [contactos]="contactos"></app-contactos>
+    <app-contactos [contactos]="contactos" (eliminado)="onEliminado($event)"></app-contactos>
 </ng-container>
-
-    
-

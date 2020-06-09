@@ -9,15 +9,16 @@ import { LoginUsuariosComponent } from './components/login-usuarios/login-usuari
 import { InfoUsuariosComponent } from './components/info-usuarios/info-usuarios.component';
 import { FormUsuarioComponent } from './components/admin-usuarios/form-usuario/form-usuario.component';
 
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ContactosComponent } from './components/info-usuarios/contactos/contactos.component';
-import { MaterialUiModule } from './material_ui/material-ui/material-ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CrearContactosComponent } from './components/info-usuarios/crear-contactos/crear-contactos.component';
+import { EliminarContactoComponent } from './components/info-usuarios/eliminar-contacto/eliminar-contacto.component';
+import { MaterialUiModule } from './material_ui/material-ui/material-ui.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,15 +28,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InfoUsuariosComponent,
     FormUsuarioComponent,
     CrearUsuarioComponent,
-    ContactosComponent
+    ContactosComponent,
+    CrearContactosComponent,
+    EliminarContactoComponent
   ],
+  entryComponents: [CrearContactosComponent, EliminarContactoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    MaterialUiModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialUiModule
   ],
   providers: [
     AuthGuard,

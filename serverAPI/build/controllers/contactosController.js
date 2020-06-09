@@ -59,6 +59,10 @@ class ContactosController {
     postContactos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
+            delete req.body.name;
+            delete req.body.keySecrect;
+            req.body.usuario = parseInt(req.body.userId);
+            delete req.body.userId;
             const result = yield contactosModels_1.contactosModels.insert(req.body);
             console.log(result);
             if (result) {
