@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EliminarContactoComponent } from '../eliminar-contacto/eliminar-contacto.component';
 import { ContactosService } from 'src/app/services/contactos.service';
 import { Mensaje } from 'src/app/models/mensajes';
+import { CrearContactosComponent } from "../crear-contactos/crear-contactos.component"
 
 @Component({
   selector: 'app-contactos',
@@ -14,6 +15,7 @@ import { Mensaje } from 'src/app/models/mensajes';
 export class ContactosComponent implements OnInit {
 @Input() contactos: Contactos[];
 @Output() eliminado: EventEmitter<boolean> = new EventEmitter<boolean>();
+@Output() editado: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 colSize: number = 1;
  isMovil:boolean = false;
@@ -61,6 +63,32 @@ colSize: number = 1;
             console.log(result.mensaje);
             console.log("enviado: true");
             this.eliminado.emit(true);
+          })
+          
+        }else{
+          console.log("sin eliminar");
+        }
+      });
+  }
+  editarContacto(contacto: Contactos){
+    console.log(contacto);
+    contacto.name = "Editar Contacto"
+    const dialogRef = this.dialog.open(CrearContactosComponent, {
+      width: 'auto',
+      data: contacto
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log('resultado del modal: ');
+        console.log(result);
+        if(result){
+          const { id } = contacto;
+         
+          this.contactosService.putContactos(id, contacto ).subscribe((result: Mensaje) =>{
+            console.log(result.mensaje);
+            console.log("enviado: true");
+            this.editado.emit(true);
           })
           
         }else{

@@ -31,6 +31,7 @@ export class CrearUsuarioComponent implements OnInit {
           console.log(res);
           alert("! " + res.mensaje + " ¡");
           localStorage.setItem('token', res.token);
+          localStorage.setItem('rol', parseInt(res.rol) == 1 ? "admin" : "client");
           this.router.navigate(['/perfil']);
         },
         err => {

@@ -38,6 +38,7 @@ class UsuariosController {
        req.body.contra = contraEncriptada;
        console.log(req.body.contra);
        delete req.body.keySecrect;
+       req.body.rol = 2;
         const result = await usuariosModels.insert(req.body);
         if (result) {
             const token = await jwt.sign({ id: result }, keySecrect);
@@ -61,7 +62,7 @@ class UsuariosController {
 
                 const token = jwt.sign({ id: result[0].id }, keySecrect);
 
-                res.status(200).json({ token });
+                res.status(200).json({ token, rol: result[0].rol });
             } else {
                 res.status(401).json({ mensaje: "Contraseña incorrecta" });
             }

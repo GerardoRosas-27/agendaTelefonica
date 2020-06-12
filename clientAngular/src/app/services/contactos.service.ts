@@ -19,4 +19,7 @@ export class ContactosService {
   deleteContactos(id: number) {
     return this.http.delete<any>(this.URL + '/contactos/'+ id );
   }
+  putContactos(id: number, data: Contactos) {
+    return this.http.put<any>(this.URL + '/contactos/'+ id, data );
+  }
 }

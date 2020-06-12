@@ -20,6 +20,8 @@ export class CrearContactosComponent implements OnInit {
     this.dialogRef.close();
   }
   ngOnInit() {
+    console.log("contactos recibidos");
+    console.log(this.data);
   }
 
 }

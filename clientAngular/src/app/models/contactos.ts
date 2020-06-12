@@ -5,4 +5,5 @@ export interface Contactos {
     correo: string;
     fecha: string;
     usuario: number;
+    name?: string; 
 }

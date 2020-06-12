@@ -18,5 +18,5 @@
 
 
 <ng-container *ngIf="statusContactos">
-    <app-contactos [contactos]="contactos" (eliminado)="onEliminado($event)"></app-contactos>
+    <app-contactos [contactos]="contactos" (editado)="onEditado($event)" (eliminado)="onEliminado($event)"></app-contactos>
 </ng-container>

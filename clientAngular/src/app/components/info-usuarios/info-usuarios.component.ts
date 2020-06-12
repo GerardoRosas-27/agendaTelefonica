@@ -77,4 +77,10 @@ export class InfoUsuariosComponent implements OnInit {
       this.getContactos();
     }
   }
+  onEditado(editado: boolean){
+    console.log(editado);
+    if(editado){
+      this.getContactos();
+    }
+  }
 }

@@ -69,6 +69,12 @@ class ContactosController {
     public async putContactos(req: Request, res: Response) {
         console.log(req.body)
         const { id } = req.params;
+        delete req.body.name;
+        delete req.body.id;
+        delete req.body.keySecrect;
+        delete req.body.userId;
+
+        console.log(req.body);
         const result = await contactosModels.update(parseInt(id), req.body);
         console.log(result);
         if (result) {

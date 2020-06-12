@@ -3,6 +3,7 @@ export interface Usuarios {
     nombre: string;
     correo: string;
     contra: string;
+    rol: number;
 }
 
 export interface Contactos {

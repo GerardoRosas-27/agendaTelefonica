@@ -90,6 +90,11 @@ class ContactosController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
             const { id } = req.params;
+            delete req.body.name;
+            delete req.body.id;
+            delete req.body.keySecrect;
+            delete req.body.userId;
+            console.log(req.body);
             const result = yield contactosModels_1.contactosModels.update(parseInt(id), req.body);
             console.log(result);
             if (result) {
