@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.crud = void 0;
+exports.Crud = void 0;
 const database_1 = __importDefault(require("../database"));
 class Crud {
     constructor() {
@@ -60,7 +60,7 @@ class Crud {
     }
     update(data, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield database_1.default.query('UPDATE ' + this.nombreTabla + ' SET ? WHERE ' + this.nombreId + ' = ?' + [data, id]);
+            const result = yield database_1.default.query('UPDATE ' + this.nombreTabla + ' SET ? WHERE ' + this.nombreId + ' = ?', [data, id]);
             return result;
         });
     }
@@ -70,5 +70,11 @@ class Crud {
             return result;
         });
     }
+    deleteNombre(nombre, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield database_1.default.query('DELETE FROM ' + this.nombreTabla + ' WHERE ' + nombre + ' = ' + id);
+            return result;
+        });
+    }
 }
-exports.crud = new Crud();
+exports.Crud = Crud;

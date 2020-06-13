@@ -1,6 +1,6 @@
 import pool from "../database";
 
-class Crud {
+export class Crud {
     private nombreTabla!: string;
     private nombreId!: string;
 
@@ -45,7 +45,7 @@ class Crud {
     }
 
     public async update(data: any, id: number) {
-        const result = await pool.query('UPDATE ' + this.nombreTabla + ' SET ? WHERE ' + this.nombreId + ' = ?' + [data, id]);
+        const result = await pool.query('UPDATE ' + this.nombreTabla + ' SET ? WHERE ' + this.nombreId + ' = ?', [data, id]);
         return result;
     }
 
@@ -53,5 +53,8 @@ class Crud {
         const result = await pool.query('DELETE FROM ' + this.nombreTabla + ' WHERE ' + this.nombreId + ' = ' + id);
         return result;
     }
+    public async deleteNombre(nombre: string, id: number) {
+        const result = await pool.query('DELETE FROM ' + this.nombreTabla + ' WHERE ' + nombre + ' = ' + id);
+        return result;
+    }
 }
-export const crud = new Crud(); 
