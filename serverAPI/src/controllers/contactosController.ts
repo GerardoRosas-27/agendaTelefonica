@@ -30,6 +30,8 @@ class ContactosController {
 
     public async getContacto(req: Request, res: Response) {
         
+        console.log(req.body.mensaje)
+        
         try {
             const { id } = req.params;
             const result = await contactosModels.select(id);
