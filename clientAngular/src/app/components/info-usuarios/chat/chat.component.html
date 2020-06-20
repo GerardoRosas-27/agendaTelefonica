@@ -1,0 +1,10 @@
+<div *ngFor="let item of mensajesRecibidos" >
+    <h3>{{ item.usuario }}</h3>
+    <p>{{ item.mensaje }}</p>
+</div>
+
+<div class="form-group">
+    <input type="text" [(ngModel)]="enviarMensaje.mensaje" name="nombre" class="form-control" placeholder="Nombre" required autofocus>
+    <button (click)="onEnviarMensaje()">Enviar</button>
+</div>
+
