@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrearContactosComponent } from './components/info-usuarios/crear-contactos/crear-contactos.component';
 import { EliminarContactoComponent } from './components/info-usuarios/eliminar-contacto/eliminar-contacto.component';
 import { MaterialUiModule } from './material_ui/material-ui/material-ui.module';
+import { ChatComponent } from './components/info-usuarios/chat/chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { MaterialUiModule } from './material_ui/material-ui/material-ui.module';
     CrearUsuarioComponent,
     ContactosComponent,
     CrearContactosComponent,
-    EliminarContactoComponent
+    EliminarContactoComponent,
+    ChatComponent
   ],
   entryComponents: [CrearContactosComponent, EliminarContactoComponent],
   imports: [

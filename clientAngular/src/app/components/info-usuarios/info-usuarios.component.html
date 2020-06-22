@@ -16,7 +16,7 @@
 
 </div>
 
-
 <ng-container *ngIf="statusContactos">
     <app-contactos [contactos]="contactos" (editado)="onEditado($event)" (eliminado)="onEliminado($event)"></app-contactos>
+    <app-chat [mensajesRecibidos]="mensajesRecibidos" (dataMensaje)="onEnviarMensaje($event)" ></app-chat>
 </ng-container>

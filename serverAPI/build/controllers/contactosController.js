@@ -45,6 +45,7 @@ class ContactosController {
     }
     getContacto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body.mensaje);
             try {
                 const { id } = req.params;
                 const result = yield contactosModels_1.contactosModels.select(id);
