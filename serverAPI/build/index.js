@@ -11,6 +11,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const usuariosRoutes_1 = require("./routes/usuariosRoutes");
 const contactosRoutes_1 = require("./routes/contactosRoutes");
+const chatController_1 = require("./controllers/chatController");
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 //----crear el servidor de express
 const expresServer = server_1.default.init(port);
@@ -19,22 +20,9 @@ const serverHttp = http_1.default.createServer(expresServer.app);
 //----Unir el serverHttp al socket.io
 const io = socket_io_1.default.listen(serverHttp);
 //----- logica del socket
-const mensajes = new Array();
-io.on('connection', socket => {
-    console.log("nuevo usuario id: ");
-    console.log(socket.id);
-    socket.on('send-message-all', () => {
-        console.log("enviar todos los mensajes:");
-        socket.emit('text-event', mensajes);
-    });
-    socket.on('send-message', (data) => {
-        console.log("mensaje recibido: ");
-        console.log(data);
-        mensajes.push(data);
-        socket.emit('text-event', mensajes);
-        socket.broadcast.emit('text-event', mensajes);
-    });
-});
+chatController_1.chat.init(expresServer.app, io);
+chatController_1.chat.mensajear();
+//---config server
 expresServer.app.use(morgan_1.default("dev"));
 expresServer.app.use(cors_1.default());
 expresServer.app.use(express_1.default.json());

@@ -7,6 +7,7 @@ import cors from "cors";
 import { usuariosR } from "./routes/usuariosRoutes";
 import { contactosR } from "./routes/contactosRoutes";
 import { socketsMensajes } from "./models/socketMensajes";
+import { chat } from "./controllers/chatController";
 
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 //----crear el servidor de express
@@ -17,27 +18,13 @@ const serverHttp = http.createServer(expresServer.app);
 
 //----Unir el serverHttp al socket.io
 const io = SocketIo.listen(serverHttp);
+
+
 //----- logica del socket
-const mensajes: socketsMensajes[] = new Array();
+chat.init(expresServer.app, io);
+chat.mensajear();
 
-io.on('connection', socket =>{
-    console.log("nuevo usuario id: ");
-    console.log(socket.id);
-    socket.on('send-message-all', () =>{
-        console.log("enviar todos los mensajes:");
-        socket.emit('text-event', mensajes);  
-    })
-
-
-    socket.on('send-message', (data: socketsMensajes ) =>{
-        console.log("mensaje recibido: ");
-        console.log(data);
-        mensajes.push(data);
-        socket.emit('text-event', mensajes);  
-        socket.broadcast.emit('text-event', mensajes);
-    })
-})
-
+//---config server
 expresServer.app.use(morgan("dev"));
 expresServer.app.use(cors());
 expresServer.app.use(express.json());

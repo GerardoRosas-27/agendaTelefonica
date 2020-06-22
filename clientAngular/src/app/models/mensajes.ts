@@ -4,6 +4,7 @@ export interface Mensaje{
 }
 
 export interface SocketsMensajes{
+    id?: number;
     usuario: string;
     mensaje: string;
 }
