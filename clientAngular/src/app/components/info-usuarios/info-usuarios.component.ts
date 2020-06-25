@@ -10,7 +10,7 @@ import { CrearContactosComponent } from "./crear-contactos/crear-contactos.compo
 import { Mensaje, SocketsMensajes } from 'src/app/models/mensajes';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { WebsocketService } from 'src/app/services/websocket.service';
-import { on } from 'process';
+
 
 @Component({
   selector: 'app-info-usuarios',
@@ -38,6 +38,7 @@ export class InfoUsuariosComponent implements OnInit {
       .subscribe(
         res => {
           this.usuarios = res;
+          console.log(res);
           //alert("bienvenido " + this.usuarios[0].nombre);
         },
         err => {
@@ -53,6 +54,9 @@ export class InfoUsuariosComponent implements OnInit {
   getMensajesChat() {
     console.log("entro solo una ves getMansajes");
     this.mensajesRecibidos = [];
+    let mensaje: SocketsMensajes;
+    mensaje.usuario = this.usuarios[0].id;
+    mensaje.nombre = this.usuarios[0].nombre;
     this.websocketService.emit("send-message-all", '');
     this.websocketService.listem("text-event").subscribe(
         (data: SocketsMensajes[]) => {
@@ -63,8 +67,8 @@ export class InfoUsuariosComponent implements OnInit {
   }
 
   onEnviarMensaje(mensaje: SocketsMensajes) {
-
-    mensaje.usuario = this.usuarios[0].nombre;
+    mensaje.usuario = this.usuarios[0].id;
+    mensaje.nombre = this.usuarios[0].nombre;
     console.log('enviar mensaje:');
     console.log(mensaje);
     this.websocketService.emit("send-message", mensaje);

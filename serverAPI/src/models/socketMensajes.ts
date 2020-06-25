@@ -1,5 +1,9 @@
 export interface socketsMensajes{
-    id?: number
-    usuario: string;
-    mensaje: string;
+    id?: number;
+    nombre?: string;
+    mensaje?: string;
+    telefono?: string;
+    socket?: string;
+    usuario?: number;
+    grupo?: number;
 }

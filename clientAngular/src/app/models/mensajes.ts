@@ -5,6 +5,10 @@ export interface Mensaje{
 
 export interface SocketsMensajes{
     id?: number;
-    usuario: string;
-    mensaje: string;
+    nombre?: string;
+    mensaje?: string;
+    telefono?: string;
+    socket?: string;
+    usuario?: number;
+    grupo?: number;
 }

@@ -16,14 +16,17 @@ exports.general = void 0;
 const crypto_1 = __importDefault(require("crypto"));
 const crud_1 = require("../models/crud");
 class Generals {
+    constructor() {
+        this.crudG = new crud_1.Crud();
+    }
     generaraID(tabla, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            crud_1.crud.init(tabla, id);
+            this.crudG.init(tabla, id);
             let nueva = false;
             let newID;
             do {
                 newID = crypto_1.default.randomBytes(15).toString('hex');
-                let result = yield crud_1.crud.select(newID);
+                let result = yield this.crudG.select(newID);
                 if (result.lenght == 0) {
                     nueva = true;
                 }

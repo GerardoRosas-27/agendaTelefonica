@@ -13,10 +13,7 @@ export class ChatComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.enviarMensaje = {
-      usuario: '',
-      mensaje: ''
-    }
+    
     console.log(this.mensajesRecibidos);
   }
   onEnviarMensaje(){

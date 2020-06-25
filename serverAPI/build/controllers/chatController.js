@@ -15,7 +15,7 @@ class Chat {
     constructor() {
         this.mensajes = new Array();
         this.crudChat = new crud_1.Crud();
-        this.crudChat.init("chat", "id");
+        this.crudChat.init("chats", "id");
     }
     init(app, io) {
         this.app = app;
@@ -25,8 +25,10 @@ class Chat {
         this.io.of("/").on("connect", (socket) => __awaiter(this, void 0, void 0, function* () {
             console.log("nuevo usuario id: ");
             console.log(socket.id);
-            socket.on('send-message-all', () => __awaiter(this, void 0, void 0, function* () {
+            socket.to(socket.id).emit('message', 'Este mensaje es único para un usuario');
+            socket.on('send-message-all', (data) => __awaiter(this, void 0, void 0, function* () {
                 console.log("enviar todos los mensajes:");
+                this.app;
                 this.mensajes = yield this.crudChat.select();
                 socket.emit('text-event', this.mensajes);
             }));
