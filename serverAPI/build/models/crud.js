@@ -76,5 +76,11 @@ class Crud {
             return result;
         });
     }
+    selectEdit(select, from, where) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield database_1.default.query('SELECT ' + select + ' FROM ' + from + ' WHERE ' + where);
+            return result;
+        });
+    }
 }
 exports.Crud = Crud;

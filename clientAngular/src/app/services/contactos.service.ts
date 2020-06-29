@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Contactos } from '../models/contactos';
+import { Grupos } from '../models/grupos';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,13 @@ export class ContactosService {
   getContactos() {
     return this.http.get<any>(this.URL + '/contactos');
   }
-  postContactos(data: Contactos) {
+  postContactos(data: Grupos) {
     return this.http.post<any>(this.URL + '/contactos', data);
   }
   deleteContactos(id: number) {
     return this.http.delete<any>(this.URL + '/contactos/'+ id );
   }
-  putContactos(id: number, data: Contactos) {
+  putContactos(id: number, data: Grupos) {
     return this.http.put<any>(this.URL + '/contactos/'+ id, data );
   }
 }

@@ -17,24 +17,24 @@ class ContactosController {
         }
     }
     
+
     public async getContactos(req: Request, res: Response) {
-        const { userId } = req.body;
+        
         try {
-            const result = await contactosModels.select(undefined , parseInt(userId));
+            let id = req.body.userId;
+            console.log("consultar grupos");
+            const result = await contactosModels.select(undefined, parseInt(id));
             console.log(result);
             res.status(200).json(result);
         } catch (error) {
-            res.status(500).json({ "mensaje": "Error no se pueden consultar los contactos" });
+            res.status(500).json({ "mensaje": "Error no se puede consultar el contacto" });
         }
     }
-
     public async getContacto(req: Request, res: Response) {
-        
-        console.log(req.body.mensaje)
-        
+     
         try {
-            const { id } = req.params;
-            const result = await contactosModels.select(id);
+           const { id } = req.params;
+            const result = await contactosModels.select(parseInt(id), undefined);
             console.log(result);
             res.status(200).json(result);
         } catch (error) {
@@ -44,9 +44,7 @@ class ContactosController {
 
     public async postContactos(req: Request, res: Response) {
         console.log(req.body);
-         delete req.body.name;
          delete req.body.keySecrect;
-         req.body.usuario = parseInt(req.body.userId);
          delete req.body.userId;
         const result = await contactosModels.insert(req.body);
         console.log(result);

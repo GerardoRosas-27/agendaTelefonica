@@ -13,7 +13,8 @@ export class CrearUsuarioComponent implements OnInit {
   user: Usuario = {
     nombre: "",
     correo: "",
-    contra: ""
+    contra: "",
+    telefono: ""
   }
   constructor(
     private authService: AuthService,

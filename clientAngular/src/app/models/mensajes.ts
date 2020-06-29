@@ -4,11 +4,13 @@ export interface Mensaje{
 }
 
 export interface SocketsMensajes{
-    id?: number;
-    nombre?: string;
-    mensaje?: string;
-    telefono?: string;
-    socket?: string;
-    usuario?: number;
     grupo?: number;
+    id?: number;
+    nombre: string;
+    mensaje: string;
+}
+export interface Conexiones{
+    usuario: number;
+    idsocket?: string;
+    fecha?: Date;
 }

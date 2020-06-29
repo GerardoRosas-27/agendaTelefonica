@@ -57,4 +57,8 @@ export class Crud {
         const result = await pool.query('DELETE FROM ' + this.nombreTabla + ' WHERE ' + nombre + ' = ' + id);
         return result;
     }
+    public async selectEdit(select: string, from: string, where: string) {
+        const result = await pool.query('SELECT ' + select + ' FROM ' + from + ' WHERE ' + where );
+        return result;
+    }
 }

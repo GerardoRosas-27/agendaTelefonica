@@ -32,23 +32,23 @@ class ContactosController {
     }
     getContactos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { userId } = req.body;
             try {
-                const result = yield contactosModels_1.contactosModels.select(undefined, parseInt(userId));
+                let id = req.body.userId;
+                console.log("consultar grupos");
+                const result = yield contactosModels_1.contactosModels.select(undefined, parseInt(id));
                 console.log(result);
                 res.status(200).json(result);
             }
             catch (error) {
-                res.status(500).json({ "mensaje": "Error no se pueden consultar los contactos" });
+                res.status(500).json({ "mensaje": "Error no se puede consultar el contacto" });
             }
         });
     }
     getContacto(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body.mensaje);
             try {
                 const { id } = req.params;
-                const result = yield contactosModels_1.contactosModels.select(id);
+                const result = yield contactosModels_1.contactosModels.select(parseInt(id), undefined);
                 console.log(result);
                 res.status(200).json(result);
             }
@@ -60,9 +60,7 @@ class ContactosController {
     postContactos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
-            delete req.body.name;
             delete req.body.keySecrect;
-            req.body.usuario = parseInt(req.body.userId);
             delete req.body.userId;
             const result = yield contactosModels_1.contactosModels.insert(req.body);
             console.log(result);

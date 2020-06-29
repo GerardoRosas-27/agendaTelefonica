@@ -12,7 +12,8 @@ export class LoginUsuariosComponent implements OnInit {
 
   user: Usuario = {
     contra:"",
-    correo:""
+    correo:"",
+    telefono: ""
   };
 
   constructor(

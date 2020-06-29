@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContactosComponent } from './contactos.component';
+import { ModalGruposComponent } from './modal-grupos.component';
 
-describe('ContactosComponent', () => {
-  let component: ContactosComponent;
-  let fixture: ComponentFixture<ContactosComponent>;
+describe('ModalGruposComponent', () => {
+  let component: ModalGruposComponent;
+  let fixture: ComponentFixture<ModalGruposComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContactosComponent ]
+      declarations: [ ModalGruposComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContactosComponent);
+    fixture = TestBed.createComponent(ModalGruposComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

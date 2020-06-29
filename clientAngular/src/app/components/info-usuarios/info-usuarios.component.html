@@ -1,10 +1,10 @@
 <div class="container my-5" >
-    <div class="row col-12 justyfy-content-center" *ngFor="let user of usuarios">
+    <div class="row col-12 justyfy-content-center">
         <div class="col-md-4">
-            <h4 class="text-center pt-3">Nombre: {{user.nombre}}</h4>
+            <h4 class="text-center pt-3">Nombre: {{usuarios.nombre}}</h4>
         </div>
         <div class="col-md-4">
-            <p class="text-center pt-3">correo: {{user.correo}}</p>
+            <p class="text-center pt-3">correo: {{usuarios.correo}}</p>
         </div>
     </div>
     <h3 class="text-center">Contactos</h3>
@@ -17,6 +17,9 @@
 </div>
 
 <ng-container *ngIf="statusContactos">
-    <app-contactos [contactos]="contactos" (editado)="onEditado($event)" (eliminado)="onEliminado($event)"></app-contactos>
+    <app-grupos [contactos]="contactos" (editado)="onEditado($event)" (eliminado)="onEliminado($event)"></app-grupos>
+    
+</ng-container>
+<ng-container *ngIf="statusChat">
     <app-chat [mensajesRecibidos]="mensajesRecibidos" (dataMensaje)="onEnviarMensaje($event)" ></app-chat>
 </ng-container>

@@ -14,10 +14,12 @@ const crud_1 = require("./crud");
 class ContactosModels {
     constructor() {
         this.crudC = new crud_1.Crud();
-        this.crudC.init("contactos", "id");
+        this.crudC.init("grupos", "id");
+        this.crudUsuariosGrupos = new crud_1.Crud();
+        this.crudUsuariosGrupos.init("usuariosgrupos", "id");
     }
     //metodo para seleccionar varios o un solo registro en la tabla usuario de la la base de datos
-    select(id, nombre) {
+    select(id, usuario) {
         return __awaiter(this, void 0, void 0, function* () {
             let result;
             if (id) {
@@ -26,26 +28,35 @@ class ContactosModels {
                 return result;
             }
             else {
-                if (nombre) {
-                    result = yield this.crudC.selectNombre("usuario", nombre);
-                    console.log(result);
-                    return result;
-                }
-                else {
-                    result = yield this.crudC.select();
-                    console.log(result);
-                    return result;
-                }
+                result = yield this.crudC.selectEdit("g.id, g.nombre, g.tipo", "grupos g, usuariosgrupos ug", "ug.usuario = " + usuario + " AND g.id = ug.grupo");
+                console.log(result);
+                return result;
             }
         });
     }
     //metodo para insertar registro en la tabla usuario de la base de datos
-    insert(contactos) {
+    insert(grupos) {
         return __awaiter(this, void 0, void 0, function* () {
+            let status = false;
             try {
-                const result = yield this.crudC.insert(contactos);
+                let usuarios = grupos.usuarios;
+                delete grupos.usuarios;
+                const result = yield this.crudC.insert(grupos);
                 console.log(result);
-                if (result.affectedRows === 1) {
+                for (const item of usuarios) {
+                    let usuariosGupos = {
+                        grupo: result.insertId,
+                        usuario: item
+                    };
+                    let respuesta = yield this.crudUsuariosGrupos.insert(usuariosGupos);
+                    if (respuesta.affectedRows === 1) {
+                        status = true;
+                    }
+                    else {
+                        status = false;
+                    }
+                }
+                if (status) {
                     return true;
                 }
                 else {

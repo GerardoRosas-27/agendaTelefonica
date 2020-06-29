@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{data.titulo}}</h1>
+<div mat-dialog-content class="row">
+    <mat-form-field class="col-md-6">
+        <mat-label>buscar Usuario</mat-label>
+        <input type="text" matInput required>
+      </mat-form-field>
+  
+  <mat-form-field class="col-md-6">
+    <mat-label>Nombre</mat-label>
+    <input type="text" matInput [(ngModel)]="data.nombre" required>
+  </mat-form-field>
+  <mat-form-field class="col-md-6">
+    <mat-label>tipo</mat-label>
+    <input type="text" matInput [(ngModel)]="data.tipo" required>
+  </mat-form-field>
+  
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cerrar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+</div>

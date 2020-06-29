@@ -14,12 +14,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-import { ContactosComponent } from './components/info-usuarios/contactos/contactos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrearContactosComponent } from './components/info-usuarios/crear-contactos/crear-contactos.component';
 import { EliminarContactoComponent } from './components/info-usuarios/eliminar-contacto/eliminar-contacto.component';
 import { MaterialUiModule } from './material_ui/material-ui/material-ui.module';
 import { ChatComponent } from './components/info-usuarios/chat/chat.component';
+import { GruposComponent } from './components/info-usuarios/grupos/grupos.component';
+import { ModalGruposComponent } from './components/info-usuarios/modal-grupos/modal-grupos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,12 +29,12 @@ import { ChatComponent } from './components/info-usuarios/chat/chat.component';
     InfoUsuariosComponent,
     FormUsuarioComponent,
     CrearUsuarioComponent,
-    ContactosComponent,
-    CrearContactosComponent,
     EliminarContactoComponent,
-    ChatComponent
+    ChatComponent,
+    GruposComponent,
+    ModalGruposComponent
   ],
-  entryComponents: [CrearContactosComponent, EliminarContactoComponent],
+  entryComponents: [ModalGruposComponent, EliminarContactoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

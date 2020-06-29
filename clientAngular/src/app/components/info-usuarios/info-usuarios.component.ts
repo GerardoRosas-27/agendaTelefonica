@@ -4,12 +4,11 @@ import { UsuariosService } from "../../services/usuarios.service";
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { ContactosService } from 'src/app/services/contactos.service';
-import { Contactos } from 'src/app/models/contactos';
+import { Grupos } from 'src/app/models/grupos';
 import { MatDialog } from '@angular/material/dialog';
-import { CrearContactosComponent } from "./crear-contactos/crear-contactos.component"
-import { Mensaje, SocketsMensajes } from 'src/app/models/mensajes';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Mensaje, SocketsMensajes, Conexiones } from 'src/app/models/mensajes';
 import { WebsocketService } from 'src/app/services/websocket.service';
+import { ModalGruposComponent } from './modal-grupos/modal-grupos.component';
 
 
 @Component({
@@ -19,8 +18,12 @@ import { WebsocketService } from 'src/app/services/websocket.service';
 })
 export class InfoUsuariosComponent implements OnInit {
   statusContactos: boolean = false;
-  contactos: Contactos[] = new Array();
-  usuarios: Usuario[];
+  contactos: Grupos[] = new Array();
+  usuarios: Usuario ={
+    nombre: '',
+    correo: ''
+  };
+  statusChat: boolean = false;
 
   mensajesRecibidos: SocketsMensajes[];
 
@@ -31,14 +34,14 @@ export class InfoUsuariosComponent implements OnInit {
     public dialog: MatDialog,
     private websocketService: WebsocketService) { }
 
-  ngOnInit() {
-    this.getMensajesChat();
-    this.getContactos();
+  ngOnInit() { 
+    this.getGrupos();
     this.usuarioService.getPerfil()
       .subscribe(
         res => {
-          this.usuarios = res;
+          this.usuarios = res[0];
           console.log(res);
+          this.getConexion();
           //alert("bienvenido " + this.usuarios[0].nombre);
         },
         err => {
@@ -50,25 +53,36 @@ export class InfoUsuariosComponent implements OnInit {
         }
       )
   }
+  getConexion() {
+    let conexion: Conexiones = {
+      usuario: this.usuarios.id
+    }
+    console.log('solicitar conexion:');
+    console.log(conexion);
+    this.websocketService.emit("send-conexion", conexion);
+    this.websocketService.listem("event-conexion").subscribe(
+      (data: any) => {
+        console.log('conexion recivida:');
+        console.log(data);
+      });
+  }
 
   getMensajesChat() {
     console.log("entro solo una ves getMansajes");
     this.mensajesRecibidos = [];
     let mensaje: SocketsMensajes;
-    mensaje.usuario = this.usuarios[0].id;
-    mensaje.nombre = this.usuarios[0].nombre;
+    mensaje.nombre = this.usuarios.nombre;
     this.websocketService.emit("send-message-all", '');
     this.websocketService.listem("text-event").subscribe(
-        (data: SocketsMensajes[]) => {
-          console.log('mensajes recibidos:');
-          console.log(data);
-          this.mensajesRecibidos = data;
-    });
+      (data: SocketsMensajes[]) => {
+        console.log('mensajes recibidos:');
+        console.log(data);
+        this.mensajesRecibidos = data;
+      });
   }
 
   onEnviarMensaje(mensaje: SocketsMensajes) {
-    mensaje.usuario = this.usuarios[0].id;
-    mensaje.nombre = this.usuarios[0].nombre;
+    mensaje.nombre = this.usuarios.nombre;
     console.log('enviar mensaje:');
     console.log(mensaje);
     this.websocketService.emit("send-message", mensaje);
@@ -76,10 +90,10 @@ export class InfoUsuariosComponent implements OnInit {
   }
 
 
-  getContactos() {
+  getGrupos() {
 
     this.contactosService.getContactos().subscribe(
-      (res: Contactos[]) => {
+      (res: Grupos[]) => {
         console.log("contactos:");
         console.log(res);
         this.contactos = res;
@@ -90,20 +104,27 @@ export class InfoUsuariosComponent implements OnInit {
 
 
   crearContacto(): void {
-    const dialogRef = this.dialog.open(CrearContactosComponent, {
+    let grupo: Grupos={
+      titulo: "Nuevo contacto",
+      nombre: '',
+      tipo: 'contacto'
+    }
+    const dialogRef = this.dialog.open(ModalGruposComponent, {
       width: '650px',
-      data: { name: "Nuevo contacto" }
+      data: grupo
     });
 
     dialogRef.afterClosed().subscribe(
-      (result: Contactos) => {
+      (result: Grupos) => {
         console.log('resultado del modal: ');
         console.log(result);
         if (result.nombre) {
+          delete result.titulo;
+          result.usuarios = [1,2];
           this.contactosService.postContactos(result).subscribe(
             (result: Mensaje) => {
               console.log(result.mensaje);
-              this.getContactos();
+              this.getGrupos();
             });
         }
       });
@@ -111,13 +132,13 @@ export class InfoUsuariosComponent implements OnInit {
   onEliminado(eliminar: boolean) {
     console.log(eliminar);
     if (eliminar) {
-      this.getContactos();
+      this.getGrupos();
     }
   }
   onEditado(editado: boolean) {
     console.log(editado);
     if (editado) {
-      this.getContactos();
+      this.getGrupos();
     }
   }
 }

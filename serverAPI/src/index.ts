@@ -6,7 +6,6 @@ import morgan from "morgan";
 import cors from "cors";
 import { usuariosR } from "./routes/usuariosRoutes";
 import { contactosR } from "./routes/contactosRoutes";
-import { socketsMensajes } from "./models/socketMensajes";
 import { chat } from "./controllers/chatController";
 
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
